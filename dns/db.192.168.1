@@ -1,0 +1,14 @@
+$TTL    604800
+@       IN      SOA     ns1.exemplo.local. root.exemplo.local. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+
+@       IN      NS      ns1.exemplo.local.
+10      IN      PTR     ns1.exemplo.local.
+12      IN      PTR     ldap.exemplo.local.
+13      IN      PTR     samba.exemplo.local.
+14      IN      PTR     ftp.exemplo.local.
+15      IN      PTR     www.exemplo.local.
