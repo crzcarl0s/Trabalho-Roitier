@@ -11,8 +11,8 @@ services:
       - ./dns/named.conf.options:/etc/bind/named.conf.options:ro
       - ./dns/db.intranet.local:/etc/bind/db.intranet.local:ro
       - ./dns/db.172.20.1:/etc/bind/db.172.20.1:ro
-      - ./dns/db.2.20.172:/etc/bind/db.2.20.172:ro # Adicione esta linha
-      - ./dns/named.conf.local:/etc/bind/named.conf.local:ro # Adicione esta linha
+      - ./dns/db.2.20.172:/etc/bind/db.2.20.172:ro 
+      - ./dns/named.conf.local:/etc/bind/named.conf.local:ro 
     ports:
       - "10053:53/tcp"
       - "10053:53/udp"
