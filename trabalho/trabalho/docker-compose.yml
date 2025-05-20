@@ -1,0 +1,86 @@
+version: "3.9"
+
+services:
+
+  cliente:
+    build: ./cliente
+    networks:
+      rede_clientes:
+        ipv4_address: 192.168.2.100
+
+  dhcp:
+    build: ./dhcp
+    networks:
+      rede_clientes:
+        ipv4_address: 192.168.2.2
+    ports:
+      - "67:67/udp"
+
+  dns:
+    build: ./dns
+    networks:
+      rede_servidores:
+        ipv4_address: 192.168.1.10
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+
+  firewall:
+    build: ./firewall
+    networks:
+      rede_servidores:
+        ipv4_address: 192.168.1.1
+      rede_clientes:
+        ipv4_address: 192.168.2.1
+    cap_add:
+      - NET_ADMIN
+
+  ftp:
+    build: ./ftp
+    networks:
+      rede_servidores:
+        ipv4_address: 192.168.1.30
+    ports:
+      - "20:20"
+      - "21:21"
+      - "30000-30100:30000-30100"
+
+  ldap:
+    build: ./ldap
+    networks:
+      rede_servidores:
+        ipv4_address: 192.168.1.40
+    ports:
+      - "389:389"
+
+  samba:
+    build: ./samba
+    networks:
+      rede_servidores:
+        ipv4_address: 192.168.1.50
+    ports:
+      - "137:137/udp"
+      - "138:138/udp"
+      - "139:139"
+      - "445:445"
+
+  web:
+    build: ./web
+    networks:
+      rede_servidores:
+        ipv4_address: 192.168.1.20
+    ports:
+      - "80:80"
+
+networks:
+  rede_servidores:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+
+  rede_clientes:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.2.0/24
